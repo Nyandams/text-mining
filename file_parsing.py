@@ -1,6 +1,6 @@
 from verse import Verse
 import re
-import pandas as pd
+import csv
 
 
 def parse_file(file):
@@ -34,4 +34,15 @@ def parse_file(file):
         return None
 
 
+def create_csv(verses_list):
+    with open('data/mormon.csv', 'w', newline="") as csv_file:
+        filewriter = csv.writer(csv_file, delimiter=';', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        for verse in verses_list:
+            row = []
+            row.append(verse.text)
+            row.append(verse.author)
+            filewriter.writerow(row)
+
+
 verses = parse_file('./data/pg17.txt')
+create_csv(verses)
